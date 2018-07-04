@@ -66,11 +66,6 @@ RUN yum install -y yum-utils gettext hostname && \
 
 RUN filebeat modules enable nginx
 RUN mkdir ${APP_ROOT}/filebeat
-RUN echo $'
-- module: nginx\n\
-  access:\n\
-    input:\n\
-      close_eof: true\n' > ${APP_ROOT}/filebeat.yml
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
