@@ -5,6 +5,10 @@ FROM centos/s2i-core-centos7
 # Volumes:
 #  * /var/opt/rh/rh-nginx112/log/nginx/ - Storage for logs
 
+
+
+
+
 EXPOSE 8080
 EXPOSE 8443
 
@@ -40,12 +44,25 @@ ENV NGINX_CONFIGURATION_PATH=${APP_ROOT}/etc/nginx.d \
     NGINX_CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/nginx \
     NGINX_APP_ROOT=${APP_ROOT}
 
+RUN echo "[elastic-6.x]\n\
+name=Elastic repository for 6.x packages\n\
+baseurl=https://artifacts.elastic.co/packages/6.x/yum\n\
+gpgcheck=1\n\
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch\n\
+enabled=1\n\
+autorefresh=1\n\
+type=rpm-md\n"\
+>> /etc/yum.repos.d/
+
 RUN yum install -y yum-utils gettext hostname && \
     yum install -y centos-release-scl-rh && \
-    INSTALL_PKGS="nss_wrapper bind-utils rh-nginx112 rh-nginx112-nginx nginx-plus-module-geoip2" && \
+    rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch && \
+    INSTALL_PKGS="nss_wrapper bind-utils rh-nginx112 rh-nginx112-nginx filebeat " && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all
+
+RUN chkconfig --add filebeat
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
