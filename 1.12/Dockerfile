@@ -52,7 +52,7 @@ gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch\n\
 enabled=1\n\
 autorefresh=1\n\
 type=rpm-md\n"\
->> /etc/yum.repos.d/
+>> /etc/yum.repos.d/elastic.repo
 
 RUN yum install -y yum-utils gettext hostname && \
     yum install -y centos-release-scl-rh && \
