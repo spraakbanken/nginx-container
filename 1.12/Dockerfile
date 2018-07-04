@@ -65,6 +65,7 @@ RUN yum install -y yum-utils gettext hostname && \
 # RUN chkconfig --add filebeat
 
 RUN filebeat modules enable nginx
+RUN mkdir ${APP_ROOT}/filebeat
 RUN echo $'
 - module: nginx\n\
   access:\n\
