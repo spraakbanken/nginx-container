@@ -69,8 +69,7 @@ RUN echo $'
 - module: nginx\n\
   access:\n\
     input:\n\
-      close_eof: true\n\
-' > ${APP_ROOT}/filebeat.yml
+      close_eof: true\n' > ${APP_ROOT}/filebeat.yml
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
