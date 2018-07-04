@@ -44,14 +44,14 @@ ENV NGINX_CONFIGURATION_PATH=${APP_ROOT}/etc/nginx.d \
     NGINX_CONTAINER_SCRIPTS_PATH=/usr/share/container-scripts/nginx \
     NGINX_APP_ROOT=${APP_ROOT}
 
-RUN echo "[elastic-6.x]\n\
+RUN echo '[elastic-6.x]\n\
 name=Elastic repository for 6.x packages\n\
 baseurl=https://artifacts.elastic.co/packages/6.x/yum\n\
 gpgcheck=1\n\
 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch\n\
 enabled=1\n\
 autorefresh=1\n\
-type=rpm-md\n"\
+type=rpm-md\n'\
 >> /etc/yum.repos.d/elastic.repo
 
 RUN yum install -y yum-utils gettext hostname && \
