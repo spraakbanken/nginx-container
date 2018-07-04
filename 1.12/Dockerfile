@@ -62,7 +62,7 @@ RUN yum install -y yum-utils gettext hostname && \
     rpm -V $INSTALL_PKGS && \
     yum clean all
 
-# RUN chkconfig --add filebeat
+RUN chkconfig --add filebeat
 
 RUN filebeat modules enable nginx
 RUN mkdir ${APP_ROOT}/filebeat
