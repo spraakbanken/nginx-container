@@ -57,7 +57,7 @@ type=rpm-md\n' > /etc/yum.repos.d/elastic.repo
 RUN yum install -y yum-utils gettext hostname && \
     yum install -y centos-release-scl-rh && \
     rpm --import https://packages.elastic.co/GPG-KEY-elasticsearch && \
-    INSTALL_PKGS="nss_wrapper bind-utils rh-nginx112 rh-nginx112-nginx filebeat " && \
+    INSTALL_PKGS="nss_wrapper bind-utils rh-nginx112 rh-nginx112-nginx filebeat which " && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all
