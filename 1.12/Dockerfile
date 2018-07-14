@@ -64,8 +64,10 @@ RUN yum install -y yum-utils gettext hostname && \
 
 RUN chkconfig --add filebeat --path.config /opt/app-root/filebeat/ --path.logs /opt/app-root/filebeat_logs/
 
-RUN filebeat modules enable nginx
-RUN mkdir ${APP_ROOT}/filebeat ${APP_ROOT}/filebeat_logs
+RUN filebeat modules enable nginx && \
+    mkdir ${APP_ROOT}/filebeat ${APP_ROOT}/filebeat_logs && \
+    mv /var/lib/filebeat/meta.json ${APP_ROOT}/filebeat_logs
+
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
